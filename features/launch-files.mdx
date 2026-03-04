@@ -1,0 +1,342 @@
+---
+title: Launch file generation
+description: Learn how Drift automatically creates, validates, and manages ROS2 launch files for your robotics simulations
+---
+
+## Overview
+
+Drift CLI takes the pain out of creating and managing ROS2 launch files. Instead of manually writing Python launch code and configuring complex node hierarchies, Drift automatically generates validated launch files based on your natural language commands.
+
+<Note>
+  Drift generates launch files following ROS2 best practices, including proper parameter handling, node namespacing, and resource management.
+</Note>
+
+## Automatic launch file creation
+
+When you ask Drift to launch your robot or create a simulation setup, it automatically generates the necessary launch files with all required configurations.
+
+### Simple robot launch
+
+```bash
+drift> launch my robot with the custom world file
+```
+
+Drift creates a launch file that:
+- Starts Gazebo with your custom world
+- Spawns your robot at the correct position
+- Loads robot controllers
+- Starts necessary ROS2 nodes
+- Sets up topic remappings if needed
+
+### Complex multi-component launch
+
+```bash
+drift> create a three arm manipulator with camera sensor
+```
+
+After creating the robot, Drift generates launch files that:
+- Load the robot description from URDF
+- Start the robot state publisher
+- Launch Gazebo simulation
+- Initialize joint controllers for all three arms
+- Configure the camera sensor pipeline
+- Set up visualization in RViz
+
+<CardGroup cols={2}>
+  <Card title="Automatic node configuration" icon="gear">
+    Drift configures all necessary ROS2 nodes with appropriate parameters and arguments.
+  </Card>
+  <Card title="Dependency ordering" icon="list-ol">
+    Launch files include proper node startup sequencing to avoid race conditions.
+  </Card>
+  <Card title="Parameter files" icon="file-code">
+    Drift generates and links YAML configuration files for complex parameters.
+  </Card>
+  <Card title="Environment setup" icon="circle-nodes">
+    Launch files properly set up ROS2 environment variables and paths.
+  </Card>
+</CardGroup>
+
+## Validation and error checking
+
+Drift doesn't just generate launch files — it validates them to catch errors before you run your simulation.
+
+### Pre-launch validation
+
+Before executing, Drift checks:
+
+- **File existence**: All referenced files (URDF, worlds, configs) exist
+- **Path correctness**: File paths are valid and accessible
+- **Parameter syntax**: YAML configuration files are well-formed
+- **Package dependencies**: Required ROS2 packages are available
+- **Node executables**: Referenced nodes can be found
+
+<Tip>
+  Drift's validation catches common errors like missing files or typos that would otherwise cause runtime failures.
+</Tip>
+
+### Runtime error detection
+
+When launching, Drift monitors for:
+
+- Failed node startups
+- Plugin loading errors
+- Controller initialization failures
+- Topic connection issues
+
+### Error recovery
+
+```bash
+drift> launch my robot
+[Drift detects a missing controller configuration]
+
+drift> I see the controller config is missing. Let me generate it for you...
+```
+
+Drift can automatically:
+- Generate missing configuration files
+- Fix common parameter errors
+- Suggest solutions for dependency issues
+- Recover from partial launch failures
+
+<Warning>
+  While Drift catches many errors automatically, complex custom configurations may require manual review and adjustment.
+</Warning>
+
+## Customization options
+
+Drift provides flexibility to customize generated launch files based on your needs.
+
+### Specifying launch parameters
+
+You can request specific configurations:
+
+```bash
+drift> launch my robot in the warehouse world at position 2,3,0
+```
+
+Drift will:
+- Use the specified world file
+- Set the spawn position parameters
+- Generate appropriate launch arguments
+
+### Sensor configurations
+
+```bash
+drift> add a lidar sensor to my robot and rebuild
+```
+
+When you rebuild, Drift updates launch files to:
+- Include the new sensor in the robot description
+- Start sensor-specific nodes (e.g., point cloud processing)
+- Configure sensor parameters
+- Set up visualization if applicable
+
+### Controller customization
+
+```bash
+drift> configure the differential drive controller for my robot
+```
+
+Drift generates launch files with:
+- Controller manager setup
+- Specific controller configurations
+- Parameter files for tuning
+- Topic remapping as needed
+
+### Multiple launch configurations
+
+Create different launch scenarios:
+
+```bash
+drift> create a launch file for testing without Gazebo
+drift> create a launch file with RViz visualization
+drift> create a minimal launch file for deployment
+```
+
+<Note>
+  Drift can maintain multiple launch configurations for different use cases while keeping them synchronized with your robot definition.
+</Note>
+
+## Launch file structure
+
+Drift-generated launch files follow a consistent, maintainable structure:
+
+### Standard components
+
+1. **Imports and setup**
+   ```python
+   from launch import LaunchDescription
+   from launch_ros.actions import Node
+   ```
+
+2. **Argument declarations**
+   - Configurable parameters
+   - Default values
+   - Descriptions
+
+3. **File path resolution**
+   - Package resource lookup
+   - URDF loading
+   - Configuration file paths
+
+4. **Node definitions**
+   - Each ROS2 node with parameters
+   - Proper namespacing
+   - Topic remappings
+
+5. **Launch description**
+   - Organized node sequence
+   - Event handlers
+   - Lifecycle management
+
+### Example structure
+
+```python
+def generate_launch_description():
+    # Declare launch arguments
+    world_arg = DeclareLaunchArgument('world', default_value='warehouse.world')
+    
+    # Load robot description
+    robot_desc = load_urdf('my_robot')
+    
+    # Define nodes
+    gazebo_node = Node(
+        package='gazebo_ros',
+        executable='spawn_entity.py',
+        arguments=['-entity', 'my_robot', '-topic', 'robot_description']
+    )
+    
+    # Return launch description
+    return LaunchDescription([
+        world_arg,
+        gazebo_node,
+        # ... more nodes
+    ])
+```
+
+<Tip>
+  Drift-generated launch files are readable and follow Python best practices, making them easy to modify manually if needed.
+</Tip>
+
+## Working with launch files
+
+### Viewing generated files
+
+Launch files are saved in your package's `launch/` directory:
+
+```
+my_robot_package/
+└── launch/
+    ├── robot_launch.py
+    ├── gazebo_launch.py
+    └── display_launch.py
+```
+
+### Modifying launch files
+
+You can:
+- Let Drift regenerate them with new commands
+- Manually edit for fine-grained control
+- Use both approaches together
+
+```bash
+drift> update my launch file to include navigation
+```
+
+Drift will modify the existing launch file or create a new one as appropriate.
+
+### Testing launch files
+
+```bash
+drift> launch my robot
+```
+
+Drift executes the launch file and monitors the startup process, providing feedback about:
+- Which nodes started successfully
+- Any errors or warnings
+- Active topics and services
+
+## Advanced features
+
+### Conditional launching
+
+Drift can create launch files with conditional logic:
+
+```bash
+drift> create a launch file that starts RViz only if use_rviz is true
+```
+
+### Include files
+
+Drift manages launch file composition:
+
+```bash
+drift> create a main launch file that includes robot and navigation launches
+```
+
+### Event handlers
+
+For complex scenarios, Drift adds event handlers:
+- Start nodes after other nodes are ready
+- Respawn failed nodes
+- Execute actions on shutdown
+
+<Warning>
+  Advanced launch file features may require ROS2 Humble or later. Check your ROS2 version compatibility.
+</Warning>
+
+## Best practices
+
+Get the most from Drift's launch file generation:
+
+### Use descriptive commands
+
+```bash
+drift> launch my inspection robot in the factory world with navigation enabled
+```
+
+More context leads to better-configured launch files.
+
+### Iterate incrementally
+
+```bash
+drift> launch my robot
+drift> add obstacle avoidance
+drift> now include mapping
+```
+
+Build up complexity gradually, letting Drift update launch files each step.
+
+### Validate before deploying
+
+Test Drift-generated launch files in simulation before using them on real hardware.
+
+### Review generated code
+
+While Drift handles most cases, review generated launch files for production use to ensure they meet your specific requirements.
+
+## Getting started
+
+To use Drift's launch file generation:
+
+1. **Create a robot:**
+   ```bash
+   drift> create a mobile robot with lidar
+   ```
+
+2. **Launch automatically:**
+   ```bash
+   drift> launch my robot
+   ```
+
+3. **Customize as needed:**
+   ```bash
+   drift> launch with RViz and navigation
+   ```
+
+4. **Let Drift handle the complexity:**
+   - Launch file creation ✓
+   - Validation ✓
+   - Error checking ✓
+   - Configuration ✓

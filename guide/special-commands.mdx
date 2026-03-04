@@ -1,0 +1,145 @@
+---
+title: Special commands
+description: Reference for Drift CLI's built-in special commands for help, updates, and process management
+---
+
+Drift CLI includes special commands that start with `/` for system-level operations and utilities. These commands provide quick access to help, version information, updates, and process management.
+
+## Available commands
+
+### /help
+
+Display comprehensive help information and command examples.
+
+**Usage:**
+```bash
+drift> /help
+```
+
+This command shows:
+- Overview of Drift's capabilities
+- Example natural language commands
+- List of all special commands
+- Tips for getting started
+
+<Note>
+Run `/help` when you're first getting started or need inspiration for what to ask Drift.
+</Note>
+
+---
+
+### /version
+
+Display the current version of Drift CLI.
+
+**Usage:**
+```bash
+drift> /version
+```
+
+This shows your installed version number, which is helpful when:
+- Checking if you're on the latest release
+- Reporting bugs or issues
+- Verifying installation succeeded
+
+**Example output:**
+```
+Drift CLI version 1.0.12
+```
+
+---
+
+### /update
+
+Update Drift CLI to the latest version.
+
+**Usage:**
+```bash
+drift> /update
+```
+
+This command:
+- Downloads the latest release
+- Installs the updated version
+- Preserves your settings and workspaces
+
+<Accordion title="Automatic update notifications">
+Drift CLI automatically checks for updates on startup. When a new version is available, you'll see a notification:
+
+```
+ℹ️  A new version (1.1.0) is available. Type /update to install.
+```
+
+Simply run `/update` to upgrade to the latest version.
+</Accordion>
+
+<Warning>
+If the update fails, you can manually download and install the latest `.deb` package from the [releases page](https://github.com/drift-tech/drift-releases/releases/latest).
+</Warning>
+
+---
+
+### /ps
+
+Show running background processes managed by Drift.
+
+**Usage:**
+```bash
+drift> /ps
+```
+
+This displays:
+- Active ROS2 nodes
+- Running Gazebo simulations
+- Background launch files
+- Process status and PIDs
+
+Use this to:
+- Monitor what's currently running
+- Track simulation processes
+- Verify launches succeeded
+- Debug process-related issues
+
+---
+
+### /clear
+
+Clear the terminal screen.
+
+**Usage:**
+```bash
+drift> /clear
+```
+
+This clears all previous output from the screen, giving you a clean workspace. Useful when:
+- Your terminal gets cluttered with output
+- You want to start a fresh task
+- You need better visibility of current operations
+
+---
+
+### /exit
+
+Exit the Drift CLI.
+
+**Usage:**
+```bash
+drift> /exit
+```
+
+This gracefully shuts down Drift and returns you to your normal terminal.
+
+<Note>
+You can also use standard terminal shortcuts like `Ctrl+C` or `Ctrl+D` to exit.
+</Note>
+
+## Quick reference
+
+| Command | Description |
+|---------|-------------|
+| `/help` | Show comprehensive help and examples |
+| `/version` | Display version information |
+| `/update` | Update to the latest version |
+| `/ps` | Show running background processes |
+| `/clear` | Clear the terminal screen |
+| `/exit` | Exit Drift CLI |

@@ -1,0 +1,196 @@
+---
+title: Troubleshooting
+description: Common issues and solutions when using Drift CLI for robotics simulations
+---
+
+This guide covers common issues you might encounter when using Drift CLI and how to resolve them.
+
+## Installation and setup issues
+
+### Command not found: drift
+
+After installing Drift CLI, if you see this error when trying to run `drift`:
+
+```bash
+bash: drift: command not found
+```
+
+**Solution:**
+
+The drift binary needs to be added to your shell's PATH. Try restarting your terminal session, or manually reload your shell configuration:
+
+```bash
+source ~/.bashrc  # for Bash users
+```
+
+Or if you're using Zsh:
+
+```bash
+source ~/.zshrc  # for Zsh users
+```
+
+<Note>
+After sourcing your configuration file, the `drift` command should be available. If the issue persists, verify the installation completed successfully.
+</Note>
+
+---
+
+## Update issues
+
+### Update fails
+
+If the `/update` command fails or doesn't complete successfully:
+
+```bash
+drift> /update
+Error: Failed to download or install update
+```
+
+**Solution:**
+
+Manually download and install the latest version:
+
+<Steps>
+  <Step title="Download the latest release">
+    Visit the [releases page](https://github.com/drift-tech/drift-releases/releases/latest) and download the latest `.deb` package:
+    
+    ```bash
+    # Example filename (version may vary)
+    drift-cli_1.0.12_amd64.deb
+    ```
+  </Step>
+  
+  <Step title="Install with dpkg">
+    Install the downloaded package:
+    
+    ```bash
+    sudo dpkg -i drift-cli_*.*.*_amd64.deb
+    ```
+  </Step>
+  
+  <Step title="Verify installation">
+    Check that the update was successful:
+    
+    ```bash
+    drift
+    ```
+    
+    Then run:
+    
+    ```bash
+    drift> /version
+    ```
+  </Step>
+</Steps>
+
+<Warning>
+Make sure you have a stable internet connection when running `/update`. Network issues can cause update failures.
+</Warning>
+
+---
+
+## Permission issues
+
+### Permission denied errors
+
+If you encounter permission errors during installation or operation:
+
+```bash
+Error: Permission denied
+```
+
+**Solution:**
+
+Ensure you have proper permissions for the operation:
+
+#### During installation
+
+The installer may need sudo access to install system-wide:
+
+```bash
+curl -fsSL https://godrift.ai/install | bash
+```
+
+If prompted, enter your password to grant sudo access.
+
+#### During workspace operations
+
+If you get permission errors when creating workspaces or packages:
+
+1. Check that you have write permissions in the target directory:
+   ```bash
+   ls -la /path/to/workspace
+   ```
+
+2. If needed, change ownership:
+   ```bash
+   sudo chown -R $USER:$USER /path/to/workspace
+   ```
+
+3. Or use a directory where you have write permissions:
+   ```bash
+   drift> create a workspace in ~/my_robot_ws
+   ```
+
+---
+
+## Getting additional help
+
+If you encounter issues not covered here:
+
+### Use the /help command
+
+Run `/help` within Drift for built-in assistance:
+
+```bash
+drift> /help
+```
+
+### Ask Drift directly
+
+Drift's AI can help troubleshoot issues. Describe your problem:
+
+```bash
+drift> why isn't my camera publishing images?
+drift> I'm getting build errors, can you help?
+drift> my robot isn't spawning in Gazebo
+```
+
+### Check process status
+
+Use `/ps` to see what's running:
+
+```bash
+drift> /ps
+```
+
+This helps identify if processes failed to start or are stuck.
+
+### Report bugs
+
+Found a bug? Report it on GitHub:
+
+- **Report bugs:** [github.com/drift-tech/drift-releases/issues](https://github.com/drift-tech/drift-releases/issues)
+- **Feature requests:** [github.com/drift-tech/drift-releases/issues/new](https://github.com/drift-tech/drift-releases/issues/new)
+
+### Contact support
+
+For additional help:
+
+- **Email:** founders@godrift.ai
+- **Website:** [godrift.ai](https://godrift.ai)
+- **Command line:** `drift --help`
+
+<Accordion title="What to include in bug reports">
+When reporting issues, include:
+
+- Your Drift CLI version (run `/version`)
+- Your operating system and version
+- ROS2 distribution (Humble, Foxy, etc.)
+- Gazebo version
+- Steps to reproduce the issue
+- Error messages or logs
+- What you expected to happen vs. what actually happened
+
+This information helps the team diagnose and fix issues quickly.
+</Accordion>

@@ -1,0 +1,96 @@
+---
+title: Frequently asked questions
+description: Common questions about Drift CLI and how it works with robotics simulations
+---
+
+Find answers to common questions about Drift CLI, from getting started to troubleshooting.
+
+<AccordionGroup>
+  <Accordion title="What is Drift CLI?">
+    Drift CLI is an AI-powered copilot for robotics simulations that eliminates the steep learning curve of robotics development. It's an intelligent assistant that understands natural language and helps you build, test, and debug complex robotic systems using conversational commands.
+
+    Instead of memorizing complex ROS2 commands or Gazebo configurations, you simply describe what you want to build, and Drift handles the rest.
+  </Accordion>
+
+  <Accordion title="How does Drift work with ROS2 and Gazebo?">
+    Drift CLI provides seamless integration with ROS2 and Gazebo Sim. It can:
+    
+    - Automatically generate and manage ROS2 workspaces and packages
+    - Create and validate launch files for your robots
+    - Interface with Gazebo Sim for realistic simulations
+    - Manage ROS2 nodes and processes in the background
+    - Debug ROS2 topics, services, and other communication channels
+    
+    You interact with Drift using natural language, and it translates your requests into the appropriate ROS2 and Gazebo commands.
+  </Accordion>
+
+  <Accordion title="Is Drift CLI free to use?">
+    Yes! Drift CLI is released under the MIT License and is free to use for everyone—from students learning ROS for the first time to experienced engineers developing production systems.
+  </Accordion>
+
+  <Accordion title="What platforms and versions are supported?">
+    Drift CLI currently supports:
+    
+    - **OS:** Ubuntu 20.04+ (Debian-based distributions)
+    - **ROS:** ROS2 (Humble, Foxy, or later recommended)
+    - **Gazebo:** Gazebo Sim (Harmonic)
+    - **Architecture:** x86_64 (amd64)
+    
+    Support for older versions of ROS and Gazebo is being added.
+  </Accordion>
+
+  <Accordion title="How do I get help if I'm stuck?">
+    There are several ways to get help:
+    
+    - Run `/help` within Drift CLI for comprehensive help and examples
+    - Check the [GitHub Issues](https://github.com/drift-tech/drift-releases/issues) for known problems and solutions
+    - Email the team at founders@godrift.ai
+    - Visit the [website](https://godrift.ai) for additional resources
+  </Accordion>
+
+  <Accordion title="What can I build with Drift CLI?">
+    Drift CLI helps you build any kind of robotic system that can be simulated with ROS2 and Gazebo. Examples include:
+    
+    - Multi-arm manipulators with various sensors
+    - Mobile robots with lidar, cameras, and other sensors
+    - Custom robot configurations in custom world files
+    - Complex multi-robot systems
+    
+    Simply describe what you want in natural language, like "create a three arm manipulator with camera sensor" or "add a lidar sensor to my robot and rebuild."
+  </Accordion>
+
+  <Accordion title="How do I check my current version?">
+    Run the `/version` command within Drift CLI to see your current version information. The current latest version is 1.0.12.
+  </Accordion>
+
+  <Accordion title="How do I update Drift CLI?">
+    Drift CLI includes automatic update detection. When a new version is available, you'll see a notification on startup. Simply run `/update` to install the latest version.
+    
+    If automatic update fails, you can manually download and install the latest `.deb` package from the [releases page](https://github.com/drift-tech/drift-releases/releases).
+  </Accordion>
+
+  <Accordion title="Why isn't the 'drift' command found after installation?">
+    If you see "Command not found: drift" after installation, try:
+    
+    1. Restart your terminal to refresh the environment
+    2. Manually source your shell configuration:
+       ```bash
+       source ~/.bashrc  # or ~/.zshrc if you use zsh
+       ```
+    
+    The installer adds Drift to your PATH, but the change may not take effect until you restart your terminal.
+  </Accordion>
+
+  <Accordion title="What special commands are available in Drift CLI?">
+    Drift CLI provides several special commands:
+    
+    - `/help` — Show comprehensive help and examples
+    - `/version` — Display version information
+    - `/update` — Update to the latest version
+    - `/ps` — Show running background processes
+    - `/clear` — Clear the terminal screen
+    - `/exit` — Exit Drift CLI
+    
+    Beyond these commands, you can use natural language to describe what you want to accomplish.
+  </Accordion>
+</AccordionGroup>

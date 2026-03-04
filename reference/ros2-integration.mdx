@@ -1,0 +1,146 @@
+---
+title: ROS2 integration
+description: How Drift CLI integrates with ROS2 for robotics development
+---
+
+Drift CLI is built to work seamlessly with ROS2, providing an AI-powered interface for common ROS2 workflows and commands.
+
+## How Drift works with ROS2
+
+Drift CLI acts as an intelligent wrapper around ROS2, understanding natural language commands and translating them into proper ROS2 operations. Instead of memorizing complex ROS2 commands, you can describe what you want to accomplish in plain English.
+
+### Natural language to ROS2 commands
+
+Drift interprets your requests and executes the appropriate ROS2 commands behind the scenes:
+
+```bash
+drift> create a ROS workspace
+# Drift creates a proper ROS2 workspace structure
+
+drift> build my package
+# Drift runs colcon build with appropriate flags
+
+drift> add a lidar sensor to my robot and rebuild
+# Drift modifies your robot description and rebuilds the workspace
+```
+
+<Tip>
+You don't need to remember specific ROS2 command syntax. Just describe what you want to do, and Drift handles the implementation details.
+</Tip>
+
+## Supported ROS2 distributions
+
+Drift CLI supports modern ROS2 distributions:
+
+- **ROS2 Humble** (recommended) - LTS release with long-term support
+- **ROS2 Foxy** - Earlier LTS release
+- **Later distributions** - Newer ROS2 versions are supported as they become available
+
+<Info>
+For the best experience and access to the latest features, we recommend using ROS2 Humble or later.
+</Info>
+
+## Workspace and package management
+
+Drift CLI provides intelligent workspace management capabilities:
+
+### Automatic workspace generation
+
+Drift can create properly structured ROS2 workspaces automatically:
+
+- Creates standard `src/`, `build/`, `install/`, and `log/` directories
+- Sets up proper workspace configuration
+- Handles workspace sourcing automatically
+
+### Package management
+
+Drift understands ROS2 packages and can:
+
+- Create new packages with proper dependencies
+- Modify existing packages intelligently
+- Build packages using `colcon` with appropriate flags
+- Manage package dependencies automatically
+
+<Warning>
+Drift modifies your workspace files directly. Make sure to use version control (like git) to track changes to your robotics projects.
+</Warning>
+
+## Command integration
+
+Drift CLI integrates with core ROS2 commands and tools:
+
+### Build system integration
+
+Drift works with `colcon`, the standard ROS2 build tool:
+
+- Automatically builds packages when needed
+- Handles build dependencies
+- Manages build flags and configurations
+
+### Launch file generation
+
+One of Drift's most powerful features is automatic launch file creation:
+
+```bash
+drift> launch my robot with the custom world file
+```
+
+Drift will:
+- Generate a proper Python or XML launch file
+- Include necessary nodes and parameters
+- Configure Gazebo world loading
+- Validate the launch file structure
+
+### Node and topic management
+
+Drift understands ROS2's node and topic system:
+
+- Can query running nodes and topics
+- Helps debug communication issues
+- Assists with topic remapping and configuration
+
+## AI-assisted debugging
+
+Drift provides intelligent debugging for ROS2 issues:
+
+```bash
+drift> why isn't my camera publishing images?
+```
+
+Drift will:
+- Analyze your robot description and launch files
+- Check topic connections and node status
+- Identify common configuration issues
+- Suggest fixes based on best practices
+
+<Tip>
+When debugging, describe the problem in natural language. Drift's AI can analyze your specific setup and provide targeted solutions.
+</Tip>
+
+## Process management
+
+Drift includes process management for ROS2 applications:
+
+```bash
+drift> /ps
+```
+
+This shows all running background processes, including:
+- Launch files
+- Individual nodes
+- Gazebo simulations
+
+You can manage these processes through Drift's interface without manually tracking PIDs or terminal windows.
+
+## Working with existing ROS2 projects
+
+Drift CLI works with your existing ROS2 projects:
+
+- Automatically detects ROS2 workspaces
+- Understands standard package structures
+- Respects existing configurations and dependencies
+- Can modify and extend existing packages
+
+<Note>
+Drift is designed to complement your existing ROS2 workflow, not replace it. You can still use standard ROS2 commands alongside Drift.
+</Note>

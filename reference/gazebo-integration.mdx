@@ -1,0 +1,200 @@
+---
+title: Gazebo integration
+description: How Drift CLI integrates with Gazebo Sim for robotics simulation
+---
+
+Drift CLI provides seamless integration with Gazebo Sim, making it easy to launch, configure, and manage robotics simulations through natural language commands.
+
+## Gazebo Sim support
+
+Drift CLI is designed to work with **Gazebo Sim (Harmonic)**, the next-generation robotics simulator.
+
+### What is Gazebo Sim?
+
+Gazebo Sim (formerly known as Ignition Gazebo) is the modern version of the Gazebo simulator:
+
+- More modular architecture
+- Better performance and scalability
+- Improved sensor simulation
+- Enhanced physics engines
+
+<Note>
+Classic Gazebo (versions 9, 10, 11) is not currently supported. Make sure you have Gazebo Sim (Harmonic) installed.
+</Note>
+
+<Info>
+Support for older versions of Gazebo is coming soon. Check the [release notes](https://github.com/drift-tech/drift-releases/releases) for updates.
+</Info>
+
+## Simulation launching
+
+Drift makes it simple to launch Gazebo simulations using natural language:
+
+```bash
+drift> launch my robot with the custom world file
+```
+
+Drift will:
+1. Locate your robot description files (URDF/SDF)
+2. Find the specified world file
+3. Generate appropriate launch files
+4. Start Gazebo Sim with proper configuration
+5. Spawn your robot in the simulation
+
+### Automatic launch file generation
+
+When you request a simulation launch, Drift automatically:
+
+- Creates ROS2 launch files (Python or XML)
+- Configures Gazebo parameters
+- Sets up necessary nodes and bridges
+- Validates the configuration before launching
+
+<Tip>
+You don't need to manually write launch files. Just describe what you want to simulate, and Drift handles the configuration.
+</Tip>
+
+## World file handling
+
+Drift CLI understands Gazebo world files and can work with them intelligently:
+
+### Using existing worlds
+
+Reference world files in your commands:
+
+```bash
+drift> launch the robot in the warehouse world
+```
+
+Drift will:
+- Search for matching world files in your workspace
+- Load the world file with your robot
+- Configure the environment properly
+
+### World file locations
+
+Drift looks for world files in standard locations:
+- Your current ROS2 workspace
+- Package-specific world directories
+- System-wide Gazebo resource paths
+
+<Note>
+Make sure your world files are in accessible locations within your ROS2 workspace for Drift to find them easily.
+</Note>
+
+## Sensor configuration
+
+One of Drift's most powerful features is intelligent sensor management:
+
+### Adding sensors
+
+Add sensors to your robot using natural language:
+
+```bash
+drift> add a lidar sensor to my robot
+drift> add a camera sensor with 1920x1080 resolution
+drift> add an IMU to the robot base
+```
+
+Drift will:
+1. Modify your robot description (URDF/SDF)
+2. Add the sensor with appropriate properties
+3. Configure ROS2 topics and plugins
+4. Rebuild the workspace if needed
+
+### Supported sensors
+
+Drift understands common robotics sensors:
+
+- **Cameras** - RGB cameras with configurable resolution
+- **Depth cameras** - RGB-D sensors for 3D perception
+- **Lidar** - 2D and 3D laser scanners
+- **IMU** - Inertial measurement units
+- **GPS** - Global positioning sensors
+- **Contact sensors** - Touch and collision detection
+
+<Tip>
+Be specific about sensor requirements in your commands. For example, "add a 360-degree lidar with 0.1 degree resolution" gives Drift more context for proper configuration.
+</Tip>
+
+### Sensor debugging
+
+Drift can help troubleshoot sensor issues:
+
+```bash
+drift> why isn't my camera publishing images?
+```
+
+Drift will:
+- Check sensor plugin configuration
+- Verify ROS2 topic connections
+- Validate sensor parameters
+- Suggest fixes for common issues
+
+## Robot creation and modification
+
+Drift can generate and modify robot descriptions:
+
+### Creating robots
+
+```bash
+drift> create a three arm manipulator with camera sensor
+```
+
+Drift will:
+- Generate a robot description (URDF/SDF)
+- Add the specified components and sensors
+- Configure joints and links properly
+- Set up ROS2 control interfaces
+
+### Modifying existing robots
+
+```bash
+drift> add wheels to my robot for mobility
+drift> change the camera position to the front of the robot
+```
+
+Drift intelligently modifies your existing robot descriptions while maintaining structural integrity.
+
+<Warning>
+Always back up your robot description files before making significant modifications. Use version control to track changes.
+</Warning>
+
+## Process management
+
+Drift tracks running Gazebo simulations:
+
+```bash
+drift> /ps
+```
+
+This shows:
+- Active Gazebo instances
+- Spawned robots and models
+- Related ROS2 nodes and bridges
+
+You can manage these processes without manually tracking terminal windows or process IDs.
+
+## Real-time error recovery
+
+Drift includes adaptive planning for simulation issues:
+
+- Detects failed launches
+- Identifies configuration errors
+- Suggests fixes automatically
+- Can retry with corrected parameters
+
+<Info>
+If a simulation fails to launch, describe the error to Drift. The AI can analyze logs and help troubleshoot the issue.
+</Info>
+
+## Integration with ROS2
+
+Gazebo Sim integration works seamlessly with ROS2:
+
+- Automatic ROS2-Gazebo bridge configuration
+- Topic remapping and namespace management
+- Parameter server integration
+- TF (transform) broadcasting
+
+Drift handles the complexity of connecting ROS2 and Gazebo Sim, so you can focus on your robotics application.

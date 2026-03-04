@@ -1,0 +1,119 @@
+---
+title: Basic commands
+description: Learn how to use Drift CLI's natural language interface to build and manage robotics simulations
+---
+
+Drift CLI understands natural language commands, so you can describe what you want to build using conversational language instead of memorizing complex ROS2 or Gazebo commands.
+
+## Natural language patterns
+
+You can talk to Drift like you're talking to a colleague. The AI understands the intent behind your commands and translates them into the appropriate robotics workflow.
+
+<Note>
+No more memorizing complex ROS2 commands or Gazebo configurations — just describe what you want to build, and Drift handles the rest.
+</Note>
+
+## Common tasks
+
+### Creating workspaces and robots
+
+Use natural language to create ROS2 workspaces and robot models:
+
+```bash
+drift> create a ROS workspace
+```
+
+```bash
+drift> create a three arm manipulator with camera sensor
+```
+
+Drift automatically handles:
+- Workspace and package generation
+- URDF/SDF file creation
+- Proper ROS2 structure and conventions
+
+### Launching simulations
+
+Start your robot simulations with simple commands:
+
+```bash
+drift> launch my robot with the custom world file
+```
+
+Drift takes care of:
+- Launch file generation and validation
+- Process management
+- Environment setup
+
+### Adding sensors and components
+
+Modify your robot by describing what you want to add:
+
+```bash
+drift> add a lidar sensor to my robot and rebuild
+```
+
+The CLI will:
+- Update your robot's model files
+- Rebuild the workspace
+- Validate the configuration
+
+### Debugging issues
+
+Ask Drift to help troubleshoot problems:
+
+```bash
+drift> why isn't my camera publishing images?
+```
+
+Drift provides:
+- AI-assisted troubleshooting
+- Error analysis
+- Real-time problem solving
+- Adaptive planning for error recovery
+
+## Command examples
+
+Here are more examples of what you can ask Drift to do:
+
+<Accordion title="Workspace management">
+```bash
+drift> create a new ROS2 package called my_robot
+drift> set up a workspace in /home/user/robot_ws
+drift> list all packages in my workspace
+```
+</Accordion>
+
+<Accordion title="Robot configuration">
+```bash
+drift> create a mobile robot with differential drive
+drift> add a depth camera to the front of my robot
+drift> change the wheel radius to 0.1 meters
+```
+</Accordion>
+
+<Accordion title="Simulation control">
+```bash
+drift> start the simulation in Gazebo
+drift> launch with the warehouse world
+drift> spawn my robot at position x=1 y=2
+```
+</Accordion>
+
+<Accordion title="Analysis and debugging">
+```bash
+drift> show me the sensor topics
+drift> check if the lidar is working
+drift> analyze the tf tree for errors
+```
+</Accordion>
+
+## Getting help
+
+If you're unsure what to ask or want to see more examples, use the `/help` command:
+
+```bash
+drift> /help
+```
+
+This displays comprehensive help information and command examples to get you started.

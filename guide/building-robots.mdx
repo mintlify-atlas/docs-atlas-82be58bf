@@ -1,0 +1,231 @@
+---
+title: Building robots
+description: Step-by-step guide to creating, configuring, and customizing robots using Drift CLI's AI-powered workflow
+---
+
+Drift CLI makes robot creation intuitive by understanding your natural language descriptions and automatically generating the necessary ROS2 packages, URDF/SDF files, and configurations.
+
+## Robot creation workflow
+
+Follow these steps to build a robot from scratch using Drift:
+
+<Steps>
+  <Step title="Start Drift CLI">
+    Launch Drift in your terminal:
+    
+    ```bash
+    drift
+    ```
+  </Step>
+  
+  <Step title="Create a workspace (if needed)">
+    If you don't have a ROS2 workspace yet, create one:
+    
+    ```bash
+    drift> create a ROS workspace
+    ```
+    
+    Drift automatically sets up the proper ROS2 workspace structure with src, build, install, and log directories.
+  </Step>
+  
+  <Step title="Describe your robot">
+    Tell Drift what kind of robot you want to build using natural language:
+    
+    ```bash
+    drift> create a three arm manipulator with camera sensor
+    ```
+    
+    Drift will:
+    - Create a new ROS2 package for your robot
+    - Generate the URDF/SDF model files
+    - Add the specified sensors and components
+    - Set up proper joint configurations
+  </Step>
+  
+  <Step title="Launch and test">
+    Once created, launch your robot in simulation:
+    
+    ```bash
+    drift> launch my robot with the custom world file
+    ```
+    
+    Drift handles:
+    - Launch file generation
+    - Gazebo initialization
+    - Process management
+  </Step>
+</Steps>
+
+## Adding sensors and components
+
+You can modify your robot at any time by adding new sensors or components.
+
+### Adding a lidar sensor
+
+```bash
+drift> add a lidar sensor to my robot and rebuild
+```
+
+Drift will:
+1. Update your robot's model file with the lidar configuration
+2. Rebuild the ROS2 workspace
+3. Validate the sensor integration
+4. Set up appropriate ROS2 topics for sensor data
+
+### Adding a camera
+
+For robots that need vision capabilities:
+
+```bash
+drift> create a three arm manipulator with camera sensor
+```
+
+The camera sensor includes:
+- Image topic publishers
+- Camera info publishers
+- Proper optical frame setup
+- Configurable resolution and FOV
+
+### Adding other components
+
+You can add various components using natural language:
+
+```bash
+drift> add a depth camera to the front of my robot
+drift> add a gripper to the end effector
+drift> add IMU sensor to the base
+```
+
+<Note>
+Drift understands the context of your robot and places components in appropriate locations based on your description.
+</Note>
+
+## Configuring robot properties
+
+### Mechanical properties
+
+Modify physical characteristics of your robot:
+
+```bash
+drift> change the wheel radius to 0.1 meters
+drift> set the arm length to 0.5 meters
+drift> increase the robot mass to 10 kg
+```
+
+### Joint configuration
+
+Configure joints for your robot:
+
+```bash
+drift> set joint limits for the shoulder joint
+drift> add a revolute joint between base and arm
+drift> configure the gripper with prismatic joints
+```
+
+### Sensor parameters
+
+Adjust sensor settings:
+
+```bash
+drift> set lidar range to 30 meters
+drift> change camera resolution to 1920x1080
+drift> set IMU update rate to 100 Hz
+```
+
+## Real-world examples
+
+<Accordion title="Creating a mobile manipulator">
+```bash
+# Create the base mobile robot
+drift> create a mobile robot with differential drive
+
+# Add a manipulator arm
+drift> add a 6-DOF arm to the mobile base
+
+# Add sensors for navigation and manipulation
+drift> add a lidar sensor for navigation
+drift> add a camera to the end effector
+
+# Launch the complete system
+drift> launch my robot in the warehouse world
+```
+</Accordion>
+
+<Accordion title="Building a drone with sensors">
+```bash
+# Create a quadcopter
+drift> create a quadcopter drone
+
+# Add sensor suite
+drift> add a depth camera facing forward
+drift> add IMU and GPS sensors
+drift> add a downward-facing camera
+
+# Test the configuration
+drift> launch the drone in the outdoor environment
+```
+</Accordion>
+
+<Accordion title="Iterative robot development">
+```bash
+# Start with basic robot
+drift> create a simple mobile robot
+
+# Test it
+drift> launch my robot
+
+# Iterate based on testing
+drift> add obstacle detection sensors
+drift> increase the wheel size
+drift> add a front bumper sensor
+
+# Rebuild and relaunch
+drift> rebuild the workspace
+drift> launch my robot with the new configuration
+```
+</Accordion>
+
+## Intelligent features
+
+Drift's AI-powered workflow includes:
+
+### Automatic package generation
+
+- Creates properly structured ROS2 packages
+- Generates package.xml and CMakeLists.txt
+- Sets up dependencies automatically
+- Follows ROS2 conventions
+
+### Launch file generation
+
+- Creates validated launch files
+- Includes proper parameter passing
+- Handles multi-robot setups
+- Configures Gazebo world loading
+
+### Adaptive planning
+
+- Real-time error recovery during builds
+- Intelligent problem-solving for common issues
+- Suggestions for configuration improvements
+- Automatic dependency resolution
+
+### Smart debugging
+
+When something goes wrong, ask Drift:
+
+```bash
+drift> why isn't my camera publishing images?
+drift> check if all sensors are working
+drift> analyze build errors
+```
+
+Drift provides:
+- AI-assisted troubleshooting
+- Root cause analysis
+- Step-by-step solutions
+- Configuration validation
+
+<Warning>
+Always test your robot in simulation before deploying to real hardware. Drift helps you iterate quickly in a safe virtual environment.
+</Warning>

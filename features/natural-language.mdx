@@ -1,0 +1,165 @@
+---
+title: Natural language interface
+description: Learn how Drift's conversational interface lets you control robotics simulations using natural language commands
+---
+
+## Overview
+
+Drift CLI eliminates the steep learning curve of robotics simulation development by letting you talk to your simulation like you're talking to a colleague. No more memorizing complex ROS2 commands or Gazebo configurations — just describe what you want to build, and Drift handles the rest.
+
+<Note>
+  Natural language commands are powered by AI, making robotics development accessible to everyone from students to experienced engineers.
+</Note>
+
+## How it works
+
+The conversational interface understands your intent and translates it into the appropriate ROS2 and Gazebo operations. You can:
+
+- Create and modify robot models
+- Launch simulations with custom configurations
+- Add sensors and components
+- Debug issues using plain English
+
+<CardGroup cols={2}>
+  <Card title="Robot creation" icon="robot">
+    Describe the robot you want to build, and Drift generates the necessary packages and configurations.
+  </Card>
+  <Card title="Sensor integration" icon="radar">
+    Add sensors to your robots using natural commands without manually editing URDF files.
+  </Card>
+  <Card title="Simulation control" icon="play">
+    Launch and manage simulations by describing your desired setup.
+  </Card>
+  <Card title="Intelligent debugging" icon="bug">
+    Ask questions about why something isn't working, and get AI-powered analysis.
+  </Card>
+</CardGroup>
+
+## Example commands
+
+Here are some real-world examples of natural language commands you can use with Drift:
+
+### Creating robots
+
+```bash
+drift> create a three arm manipulator with camera sensor
+```
+
+This command generates a complete ROS2 package with a three-armed manipulator robot model including an integrated camera sensor.
+
+### Launching simulations
+
+```bash
+drift> launch my robot with the custom world file
+```
+
+Drift will locate your robot and custom world file, then create and execute the appropriate launch configuration.
+
+### Modifying robots
+
+```bash
+drift> add a lidar sensor to my robot and rebuild
+```
+
+This updates your robot's URDF, regenerates necessary files, and rebuilds the workspace automatically.
+
+### Debugging issues
+
+```bash
+drift> why isn't my camera publishing images?
+```
+
+Drift analyzes your system, checks topic connections, and provides intelligent troubleshooting guidance.
+
+### Workspace setup
+
+```bash
+drift> create a ROS workspace
+```
+
+Generates a properly structured ROS2 workspace with all necessary configuration files.
+
+<Tip>
+  Start with simple commands and gradually add more details. Drift understands context from your previous commands.
+</Tip>
+
+## Tips for effective prompts
+
+Get the most out of Drift's natural language interface with these best practices:
+
+### Be specific about components
+
+Instead of:
+```bash
+drift> make a robot
+```
+
+Try:
+```bash
+drift> create a four-wheeled robot with a depth camera and lidar
+```
+
+### Mention relevant files
+
+When working with existing resources, reference them explicitly:
+
+```bash
+drift> launch my turtlebot with the warehouse world
+```
+
+### Ask follow-up questions
+
+Drift maintains conversation context, so you can build on previous commands:
+
+```bash
+drift> create a mobile robot
+drift> add a camera to it
+drift> now launch it in Gazebo
+```
+
+### Use technical terms when needed
+
+Drift understands robotics terminology:
+
+```bash
+drift> configure the differential drive controller for my robot
+drift> set the IMU publish rate to 100Hz
+```
+
+### Request explanations
+
+Don't hesitate to ask "why" or "how":
+
+```bash
+drift> explain how the joint controllers work
+drift> what topics is my robot publishing?
+```
+
+<Warning>
+  While Drift is powerful, it works best when you have a basic understanding of ROS2 and Gazebo concepts. Complex custom configurations may require some manual adjustments.
+</Warning>
+
+## Getting started
+
+To begin using Drift's natural language interface:
+
+1. Launch Drift CLI:
+   ```bash
+   drift
+   ```
+
+2. Start with a simple command:
+   ```bash
+   drift> /help
+   ```
+
+3. Try creating your first robot:
+   ```bash
+   drift> create a simple mobile robot
+   ```
+
+4. Experiment and iterate - Drift learns from context!
+
+<Tip>
+  Use the `/help` command anytime to see examples and get inspiration for what you can build.
+</Tip>

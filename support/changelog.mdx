@@ -1,0 +1,78 @@
+---
+title: Changelog and releases
+description: Stay up to date with the latest Drift CLI releases and updates
+---
+
+Drift CLI is continuously improving based on community feedback. Stay informed about new features, bug fixes, and improvements.
+
+## Current version
+
+The latest stable version of Drift CLI is **1.0.12**.
+
+<Card title="View release notes" icon="tag" href="https://github.com/drift-tech/drift-releases/releases/latest">
+  See what's new in version 1.0.12 and download the latest release.
+</Card>
+
+## Checking your version
+
+You can check which version of Drift CLI you're currently running:
+
+```bash
+drift> /version
+```
+
+This will display your current version number along with other version information.
+
+## Updating Drift CLI
+
+Drift CLI includes automatic update detection to keep you informed about new releases.
+
+### Automatic update notifications
+
+When you launch Drift CLI, it automatically checks for new versions. If an update is available, you'll see a notification like this:
+
+```
+ℹ️  A new version (1.1.0) is available. Type /update to install.
+```
+
+### Installing updates
+
+To update to the latest version, simply run:
+
+```bash
+drift> /update
+```
+
+Drift CLI will download and install the latest version automatically.
+
+### Manual updates
+
+If the automatic update fails or you prefer to update manually:
+
+1. Visit the [releases page](https://github.com/drift-tech/drift-releases/releases/latest)
+2. Download the latest `.deb` package (e.g., `drift-cli_1.0.12_amd64.deb`)
+3. Install it using dpkg:
+
+```bash
+sudo dpkg -i drift-cli_*.*.*_amd64.deb
+```
+
+## Release history
+
+View the complete history of all Drift CLI releases, including detailed changelogs and release notes:
+
+<Card title="All releases" icon="clock-rotate-left" href="https://github.com/drift-tech/drift-releases/releases">
+  Browse all Drift CLI releases and their changelogs on GitHub.
+</Card>
+
+## What's next?
+
+We're continuously improving Drift CLI based on your feedback. Have a feature request or suggestion? Let us know on [GitHub Issues](https://github.com/drift-tech/drift-releases/issues/new).
+
+## Stay informed
+
+To stay up to date with the latest Drift CLI news:
+
+- Watch the [GitHub repository](https://github.com/drift-tech/drift-releases) for release notifications
+- Visit [godrift.ai](https://godrift.ai) for announcements and updates
+- Join the conversation in our [GitHub Issues](https://github.com/drift-tech/drift-releases/issues)

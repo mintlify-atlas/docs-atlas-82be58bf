@@ -1,0 +1,409 @@
+---
+title: Process management
+description: Learn how Drift tracks and manages background processes for your robotics simulations
+---
+
+## Overview
+
+Drift CLI includes intelligent process management that tracks all running simulations, ROS2 nodes, and background tasks. You can easily monitor what's running, check process status, and manage multiple simulations simultaneously.
+
+<Note>
+  Drift automatically tracks processes it launches, giving you full visibility and control over your robotics environment.
+</Note>
+
+## Background process tracking
+
+When you launch simulations or start ROS2 nodes through Drift, they run in the background while keeping the Drift CLI responsive. All background processes are automatically tracked and monitored.
+
+### What Drift tracks
+
+Drift monitors:
+
+- **Gazebo simulations** — Running simulation instances
+- **ROS2 nodes** — Individual nodes started by launch files
+- **Controller managers** — Robot controller processes
+- **Sensor pipelines** — Camera, lidar, and other sensor processing
+- **Navigation stacks** — Path planning and localization nodes
+- **Visualization tools** — RViz and other display applications
+
+<CardGroup cols={2}>
+  <Card title="Automatic tracking" icon="radar">
+    All processes launched through Drift are automatically registered and monitored.
+  </Card>
+  <Card title="Health monitoring" icon="heartbeat">
+    Drift detects when processes crash or exit unexpectedly.
+  </Card>
+  <Card title="Resource awareness" icon="gauge-high">
+    Track CPU and memory usage of your simulation processes.
+  </Card>
+  <Card title="Clean shutdown" icon="power-off">
+    Gracefully terminate processes when needed, avoiding orphaned nodes.
+  </Card>
+</CardGroup>
+
+### Process lifecycle
+
+1. **Launch**: When you start a simulation
+   ```bash
+   drift> launch my robot
+   ```
+
+2. **Track**: Drift registers all spawned processes
+
+3. **Monitor**: Continuous health checking in the background
+
+4. **Report**: Status available via `/ps` command
+
+5. **Cleanup**: Automatic cleanup on shutdown or manual termination
+
+<Tip>
+  Drift ensures that when you exit, all child processes are properly terminated to avoid cluttering your system.
+</Tip>
+
+## Using the /ps command
+
+The `/ps` command is your window into all running processes managed by Drift.
+
+### Basic usage
+
+```bash
+drift> /ps
+```
+
+Displays a list of currently running processes:
+
+```
+Running Processes:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PID    Process Name              Status    Uptime
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+12345  gazebo                    Running   5m 23s
+12346  robot_state_publisher     Running   5m 20s
+12347  controller_manager        Running   5m 18s
+12348  rviz2                     Running   3m 42s
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Process information
+
+For each process, `/ps` shows:
+
+- **PID**: Process ID for system-level management
+- **Process Name**: Identifier for the running application or node
+- **Status**: Current state (Running, Stopped, Failed)
+- **Uptime**: How long the process has been running
+
+### Detailed process view
+
+```bash
+drift> show details for process 12345
+```
+
+Get comprehensive information:
+- Command-line arguments
+- Parent/child process relationships
+- CPU and memory usage
+- Output logs
+- Associated ROS2 topics and services
+
+<Note>
+  Use `/ps` regularly when debugging to ensure all expected nodes are running and healthy.
+</Note>
+
+## Managing multiple simulations
+
+Drift makes it easy to run and manage multiple simulations or robots simultaneously.
+
+### Running multiple instances
+
+```bash
+drift> launch robot1 in warehouse world
+drift> launch robot2 in factory world
+```
+
+Drift keeps both simulations organized:
+- Separate process groups
+- Unique namespaces for ROS2 topics
+- Independent Gazebo instances
+- Isolated logs and outputs
+
+### Switching between simulations
+
+```bash
+drift> /ps
+[See both simulations running]
+
+drift> switch to robot1 context
+drift> what topics is this robot publishing?
+```
+
+Drift understands context and lets you interact with specific simulations.
+
+### Selective termination
+
+```bash
+drift> stop robot1 simulation
+```
+
+Terminate specific simulations while keeping others running:
+- Graceful node shutdown
+- Clean resource release
+- Automatic process cleanup
+
+### Mass management
+
+```bash
+drift> stop all simulations
+drift> restart all nodes
+drift> show status of all processes
+```
+
+<Warning>
+  Running multiple Gazebo instances simultaneously requires significant system resources. Monitor CPU and memory usage.
+</Warning>
+
+## Process monitoring and debugging
+
+Drift's process management integrates with its debugging capabilities.
+
+### Detecting failures
+
+```bash
+drift> /ps
+
+Running Processes:
+PID    Process Name              Status    Uptime
+12345  gazebo                    Running   10m 5s
+12347  controller_manager        Failed    -
+```
+
+Drift alerts you to failed processes and can help diagnose why:
+
+```bash
+drift> why did controller_manager fail?
+```
+
+Drift analyzes:
+- Process exit codes
+- Error messages in logs
+- Missing dependencies
+- Configuration issues
+
+### Log access
+
+```bash
+drift> show logs for gazebo
+drift> show errors from last 5 minutes
+```
+
+Quickly access process output without leaving Drift.
+
+### Real-time monitoring
+
+```bash
+drift> monitor my robot processes
+```
+
+Drift can provide live updates when:
+- Processes start or stop
+- Errors occur
+- Resource usage spikes
+
+<Tip>
+  Use process monitoring during development to catch issues early, especially when testing new configurations.
+</Tip>
+
+## Process control commands
+
+Drift provides comprehensive process control:
+
+### Starting processes
+
+```bash
+drift> launch my robot
+drift> start navigation stack
+drift> run RViz with my config
+```
+
+### Stopping processes
+
+```bash
+drift> stop gazebo
+drift> kill all controller nodes
+drift> terminate the simulation
+```
+
+### Restarting processes
+
+```bash
+drift> restart the controller manager
+drift> reload the robot state publisher
+```
+
+### Pausing and resuming
+
+```bash
+drift> pause the simulation
+drift> resume simulation
+```
+
+Pause Gazebo physics while keeping nodes running for debugging.
+
+## Advanced process features
+
+### Process groups
+
+Drift organizes related processes into logical groups:
+
+```bash
+drift> launch my robot
+[Creates process group: "my_robot"]
+  - gazebo
+  - robot_state_publisher
+  - controller_manager
+  - joint_state_publisher
+
+drift> stop group my_robot
+[Terminates all processes in the group]
+```
+
+### Dependency handling
+
+Drift understands process dependencies:
+
+```bash
+drift> stop robot_state_publisher
+
+Warning: controller_manager depends on robot_state_publisher.
+Stop dependent processes too? (y/n)
+```
+
+### Auto-restart
+
+```bash
+drift> configure controller_manager to auto-restart on failure
+```
+
+Critical processes can be automatically restarted if they crash.
+
+### Resource limits
+
+```bash
+drift> limit gazebo to 4 CPU cores
+drift> set memory limit for navigation stack to 2GB
+```
+
+<Note>
+  Resource limiting helps prevent one simulation from consuming all system resources when running multiple instances.
+</Note>
+
+## Best practices
+
+### Use /ps regularly
+
+Make checking process status part of your workflow:
+
+```bash
+drift> /ps
+```
+
+Before starting new tasks, verify what's already running.
+
+### Clean up after testing
+
+```bash
+drift> stop all simulations
+```
+
+Terminate test processes to free resources.
+
+### Monitor during development
+
+When developing new features:
+
+```bash
+drift> launch my robot
+drift> /ps
+[Verify all nodes started]
+drift> add new sensor
+drift> rebuild and restart
+drift> /ps
+[Confirm new nodes are running]
+```
+
+### Use descriptive names
+
+When launching multiple simulations:
+
+```bash
+drift> launch warehouse_robot in warehouse world
+drift> launch factory_robot in factory world
+```
+
+Clear names make process management easier.
+
+### Group related processes
+
+Organize complex setups:
+
+```bash
+drift> create process group for my navigation test
+drift> add navigation nodes to the group
+```
+
+## Troubleshooting
+
+### Orphaned processes
+
+If Drift exits unexpectedly:
+
+```bash
+drift> /ps
+[Shows processes from previous session]
+
+drift> clean up orphaned processes
+```
+
+### Process won't stop
+
+```bash
+drift> force stop gazebo
+```
+
+Drift can forcefully terminate stuck processes.
+
+### Missing processes
+
+```bash
+drift> why isn't controller_manager in /ps?
+drift> search for running ROS2 nodes
+```
+
+Drift can help find processes started outside of Drift.
+
+## Getting started
+
+To use Drift's process management:
+
+1. **Launch a simulation:**
+   ```bash
+   drift> launch my robot
+   ```
+
+2. **Check running processes:**
+   ```bash
+   drift> /ps
+   ```
+
+3. **Monitor and manage:**
+   ```bash
+   drift> show details for gazebo
+   drift> stop controller_manager
+   ```
+
+4. **Clean up when done:**
+   ```bash
+   drift> stop all simulations
+   ```
+
+Drift handles all the complexity of process lifecycle management!

@@ -1,0 +1,72 @@
+---
+title: System requirements
+description: Hardware and software requirements for running Drift CLI
+---
+
+Drift CLI requires specific system components to function properly. Make sure your system meets these requirements before installing.
+
+## Operating system
+
+Drift CLI is designed for Debian-based Linux distributions.
+
+- **OS:** Ubuntu 20.04 or later
+- **Architecture:** x86_64 (amd64)
+
+<Info>
+While Ubuntu is the primary supported distribution, other Debian-based distributions may work but are not officially tested.
+</Info>
+
+## ROS2
+
+Drift CLI integrates deeply with ROS2 for robotics development and simulation management.
+
+- **ROS2 distributions:** Humble, Foxy, or later (recommended)
+- **Installation:** You must have ROS2 installed and properly configured on your system
+
+<Tip>
+For the best experience, use ROS2 Humble, which is the current LTS (Long Term Support) release.
+</Tip>
+
+## Gazebo
+
+Drift CLI uses Gazebo for robotics simulation.
+
+- **Gazebo version:** Gazebo Sim (Harmonic)
+- **Installation:** Gazebo Sim must be installed and accessible from your command line
+
+<Note>
+Gazebo Sim (formerly Ignition Gazebo) is the next-generation version of Gazebo. Classic Gazebo is not currently supported.
+</Note>
+
+## Upcoming support
+
+The Drift team is actively working to expand compatibility:
+
+<Info>
+Support for older versions of ROS and Gazebo is coming soon. Check the [release notes](https://github.com/drift-tech/drift-releases/releases) for updates on expanded compatibility.
+</Info>
+
+## Hardware recommendations
+
+While Drift CLI itself is lightweight, robotics simulations can be resource-intensive:
+
+- **RAM:** 8GB minimum, 16GB or more recommended
+- **CPU:** Multi-core processor recommended for simulation performance
+- **Storage:** At least 10GB free space for ROS2, Gazebo, and workspace files
+
+## Verifying your setup
+
+Before installing Drift CLI, verify that your system has the required dependencies:
+
+```bash
+# Check Ubuntu version
+lsb_release -a
+
+# Verify ROS2 installation
+ros2 --version
+
+# Verify Gazebo installation
+gz sim --version
+```
+
+If any of these commands fail, you'll need to install the missing components before proceeding with Drift CLI installation.

@@ -1,0 +1,201 @@
+---
+title: Updates and versioning
+description: How to keep Drift CLI up to date with the latest features and fixes
+---
+
+Drift CLI includes built-in update management to ensure you always have access to the latest features, improvements, and bug fixes.
+
+## Current version
+
+The latest stable release of Drift CLI is **version 1.0.12**.
+
+You can check your installed version at any time:
+
+```bash
+drift> /version
+```
+
+## Automatic update detection
+
+Drift CLI automatically checks for new versions when you start the application. If an update is available, you'll see a notification:
+
+```
+ℹ️  A new version (1.1.0) is available. Type /update to install.
+```
+
+<Info>
+Update checks happen automatically on startup. You don't need to manually check for updates, but you can control when to install them.
+</Info>
+
+### How it works
+
+Drift's update detection:
+
+- Checks for new releases on startup
+- Compares your current version with the latest release
+- Shows a notification if an update is available
+- Does not interrupt your work or force updates
+
+<Tip>
+Update notifications only appear at startup. If you keep Drift running for extended periods, restart it occasionally to check for updates.
+</Tip>
+
+## Using the /update command
+
+The simplest way to update Drift CLI is using the built-in update command:
+
+```bash
+drift> /update
+```
+
+This command:
+1. Downloads the latest version
+2. Installs the update automatically
+3. Handles all dependencies
+4. Preserves your configuration
+
+<Warning>
+The `/update` command will exit Drift CLI to complete the installation. You'll need to restart Drift after the update finishes.
+</Warning>
+
+### Update process
+
+When you run `/update`, Drift will:
+
+1. **Download** - Fetch the latest `.deb` package from GitHub releases
+2. **Verify** - Confirm the download is complete and valid
+3. **Install** - Use `dpkg` to install the new version
+4. **Cleanup** - Remove temporary files
+5. **Complete** - Exit so you can restart with the new version
+
+## Manual update process
+
+If the `/update` command fails or you prefer manual installation, you can update Drift CLI manually.
+
+### Step 1: Download the latest release
+
+Visit the [Drift CLI releases page](https://github.com/drift-tech/drift-releases/releases/latest) and download the latest `.deb` package:
+
+```
+drift-cli_X.X.X_amd64.deb
+```
+
+### Step 2: Install the package
+
+Use `dpkg` to install the downloaded package:
+
+```bash
+sudo dpkg -i drift-cli_*.*.*_amd64.deb
+```
+
+<Note>
+You'll need sudo privileges to install the `.deb` package manually.
+</Note>
+
+### Step 3: Verify the installation
+
+Restart Drift CLI and check the version:
+
+```bash
+drift
+```
+
+Then verify:
+
+```bash
+drift> /version
+```
+
+## Release notes
+
+Detailed information about each release is available on GitHub:
+
+[View Release Notes](https://github.com/drift-tech/drift-releases/releases)
+
+Release notes include:
+
+- **New features** - Major functionality additions
+- **Improvements** - Enhancements to existing features
+- **Bug fixes** - Resolved issues and problems
+- **Breaking changes** - Changes that may affect existing workflows
+- **Known issues** - Current limitations and workarounds
+
+<Tip>
+Before updating, check the release notes to understand what's changed and whether any breaking changes might affect your projects.
+</Tip>
+
+## Version numbering
+
+Drift CLI follows semantic versioning (SemVer):
+
+- **Major version** (X.0.0) - Breaking changes or major new features
+- **Minor version** (0.X.0) - New features, backward compatible
+- **Patch version** (0.0.X) - Bug fixes and minor improvements
+
+Example: `1.0.12`
+- Major: 1
+- Minor: 0
+- Patch: 12
+
+<Info>
+Patch updates (like 1.0.11 to 1.0.12) are always safe to install and don't introduce breaking changes.
+</Info>
+
+## Troubleshooting updates
+
+### Update command fails
+
+If `/update` fails:
+
+1. Check your internet connection
+2. Ensure you have sufficient disk space
+3. Verify you have proper permissions
+4. Try the manual update process instead
+
+```bash
+# Manual update if /update fails
+sudo dpkg -i drift-cli_*.*.*_amd64.deb
+```
+
+### Permission denied errors
+
+The update process requires elevated privileges:
+
+- The `/update` command will prompt for your password if needed
+- Make sure your user account has sudo access
+- For manual installation, always use `sudo dpkg`
+
+### "Command not found" after update
+
+If `drift` isn't found after updating:
+
+```bash
+# Reload your shell configuration
+source ~/.bashrc  # or ~/.zshrc
+
+# Or restart your terminal
+```
+
+<Warning>
+If problems persist after updating, try reinstalling Drift CLI completely using the installation script from the website.
+</Warning>
+
+## Staying informed
+
+To stay up to date with Drift CLI development:
+
+- **GitHub releases** - [Subscribe to release notifications](https://github.com/drift-tech/drift-releases/releases)
+- **Website** - Check [godrift.ai](https://godrift.ai) for announcements
+- **Issues** - Follow the [issues page](https://github.com/drift-tech/drift-releases/issues) for bug reports and feature requests
+
+## Downgrading
+
+If you need to downgrade to a previous version:
+
+1. Download the older `.deb` package from the releases page
+2. Install it using `sudo dpkg -i drift-cli_OLD_VERSION_amd64.deb`
+3. Restart Drift CLI
+
+<Note>
+Downgrading is rarely necessary but can be useful if you encounter issues with a new release.
+</Note>

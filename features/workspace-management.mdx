@@ -1,0 +1,264 @@
+---
+title: Intelligent workspace management
+description: Discover how Drift automatically manages ROS2 workspaces, packages, and build configurations
+---
+
+## Overview
+
+Drift CLI provides intelligent workspace management that eliminates the manual overhead of creating and organizing ROS2 workspaces. With automatic package generation and smart organization, you can focus on building robots instead of managing directory structures.
+
+<Note>
+  Drift handles all the complexity of ROS2 workspace setup, from package creation to build configuration.
+</Note>
+
+## Automatic package generation
+
+When you create a robot or component using Drift, it automatically generates properly structured ROS2 packages with all necessary files:
+
+- Package manifest files (`package.xml`)
+- CMake configuration (`CMakeLists.txt`)
+- Source directories and starter code
+- Robot description files (URDF/Xacro)
+- Launch file directories
+- Resource and configuration folders
+
+### Example: Creating a workspace
+
+```bash
+drift> create a ROS workspace
+```
+
+Drift generates a complete workspace structure:
+
+```
+my_workspace/
+├── src/
+│   └── (your packages will go here)
+├── build/
+├── install/
+└── log/
+```
+
+### Example: Creating a robot package
+
+```bash
+drift> create a three arm manipulator with camera sensor
+```
+
+Drift automatically creates:
+
+```
+my_workspace/src/three_arm_manipulator/
+├── package.xml
+├── CMakeLists.txt
+├── urdf/
+│   ├── robot.urdf.xacro
+│   └── camera.xacro
+├── launch/
+│   └── robot_launch.py
+├── config/
+│   └── controllers.yaml
+└── meshes/
+```
+
+<Tip>
+  You don't need to know the exact ROS2 package structure — Drift creates everything according to ROS2 best practices.
+</Tip>
+
+## Workspace organization
+
+Drift intelligently organizes your workspace to follow ROS2 conventions and best practices:
+
+<CardGroup cols={2}>
+  <Card title="Package separation" icon="folder-tree">
+    Each robot or component gets its own package, keeping your workspace clean and modular.
+  </Card>
+  <Card title="Dependency management" icon="link">
+    Drift automatically adds required dependencies to your package.xml files.
+  </Card>
+  <Card title="Build optimization" icon="gauge">
+    Smart build configurations ensure fast compilation and proper linking.
+  </Card>
+  <Card title="Source control ready" icon="code-branch">
+    Generated workspaces follow .gitignore best practices for version control.
+  </Card>
+</CardGroup>
+
+### Logical file placement
+
+Drift knows where different types of files belong:
+
+- **Robot descriptions** → `urdf/` directory
+- **Launch files** → `launch/` directory
+- **Configuration files** → `config/` directory
+- **3D models** → `meshes/` directory
+- **Source code** → `src/` directory
+
+## How Drift manages ROS2 workspaces
+
+Drift provides comprehensive workspace lifecycle management:
+
+### Workspace initialization
+
+When you start a new project:
+
+```bash
+drift> create a ROS workspace for my robot project
+```
+
+Drift will:
+1. Create the workspace directory structure
+2. Initialize the build system
+3. Set up environment configuration
+4. Create a `.gitignore` file
+
+### Package addition
+
+When you add new components:
+
+```bash
+drift> add a lidar sensor to my robot and rebuild
+```
+
+Drift will:
+1. Update the robot's URDF with the new sensor
+2. Add necessary dependencies to `package.xml`
+3. Update CMakeLists.txt if needed
+4. Rebuild the affected packages
+
+<Note>
+  Drift only rebuilds what's necessary, saving you time during development iterations.
+</Note>
+
+### Dependency resolution
+
+Drift automatically handles dependencies:
+
+- Detects required ROS2 packages
+- Adds them to your package manifest
+- Ensures build order is correct
+- Warns about missing system dependencies
+
+### Build management
+
+Drift integrates with the ROS2 build system:
+
+```bash
+drift> rebuild my workspace
+```
+
+Drift uses `colcon` under the hood with optimized settings:
+- Parallel compilation for speed
+- Symlink installation for faster iteration
+- Proper error reporting and recovery
+
+<Warning>
+  Drift requires a properly installed ROS2 environment. Make sure you've sourced your ROS2 setup file before running Drift.
+</Warning>
+
+## Advanced workspace features
+
+### Multi-package projects
+
+Drift can manage complex projects with multiple packages:
+
+```bash
+drift> create a navigation stack with mapping and localization packages
+```
+
+This creates multiple interconnected packages with proper dependencies.
+
+### Workspace overlays
+
+Drift understands ROS2 workspace overlaying:
+
+- Works with existing ROS2 installations
+- Can overlay on top of other workspaces
+- Properly sources the workspace chain
+
+### Environment management
+
+Drift helps you manage environment variables:
+
+```bash
+drift> what's in my ROS environment?
+```
+
+Get information about:
+- Active ROS distribution
+- Sourced workspaces
+- Package paths
+- Important environment variables
+
+<Tip>
+  Use Drift to quickly check your environment setup when troubleshooting build or runtime issues.
+</Tip>
+
+## Best practices
+
+When working with Drift's workspace management:
+
+### Start clean
+
+Let Drift create workspaces from scratch rather than trying to retrofit existing ones:
+
+```bash
+drift> create a new ROS workspace for my mobile robot
+```
+
+### Use descriptive names
+
+Be clear about what you're building:
+
+```bash
+drift> create a warehouse inspection robot package
+```
+
+Drift will use your description to generate appropriate package names.
+
+### Trust the automation
+
+Drift handles the boilerplate, so you can focus on unique logic:
+
+- Let Drift generate launch files
+- Let Drift manage dependencies
+- Let Drift organize files
+
+### Iterate quickly
+
+Drift makes it easy to modify and rebuild:
+
+```bash
+drift> add a depth camera and rebuild
+drift> change the robot base to holonomic drive
+drift> add obstacle avoidance capability
+```
+
+Each command intelligently updates your workspace.
+
+## Getting started
+
+To leverage Drift's workspace management:
+
+1. **Launch Drift:**
+   ```bash
+   drift
+   ```
+
+2. **Create your workspace:**
+   ```bash
+   drift> create a ROS workspace
+   ```
+
+3. **Add your first robot:**
+   ```bash
+   drift> create a mobile robot with lidar
+   ```
+
+4. **Build and iterate:**
+   ```bash
+   drift> build the workspace
+   drift> add a camera sensor
+   ```
+
+Drift handles all the ROS2 complexity behind the scenes!

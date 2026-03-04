@@ -1,0 +1,474 @@
+---
+title: Smart debugging
+description: Discover how Drift's AI-assisted debugging helps you troubleshoot robotics simulations and recover from errors
+---
+
+## Overview
+
+Drift CLI provides intelligent debugging capabilities that go far beyond traditional error messages. Using AI-powered analysis, Drift helps you understand what's wrong, why it's happening, and how to fix it — all through natural language conversation.
+
+<Note>
+  Drift's debugging combines system analysis, log parsing, and AI reasoning to provide actionable solutions to common and complex robotics issues.
+</Note>
+
+## AI-assisted troubleshooting
+
+Instead of manually parsing logs and searching documentation, you can simply ask Drift what's wrong.
+
+### Natural language debugging
+
+```bash
+drift> why isn't my camera publishing images?
+```
+
+Drift analyzes:
+- Camera sensor configuration in URDF
+- Gazebo plugin settings
+- ROS2 topic connections
+- Node status and parameters
+- System resource availability
+
+Then provides a specific diagnosis:
+
+```
+Analyzing camera issue...
+
+Found the problem:
+- The camera plugin is loaded but the image topic is not being published
+- The camera_info_topic parameter is set incorrectly in your URDF
+- Expected: /camera/camera_info
+- Found: /camera_info
+
+Fix: Update the camera plugin configuration in your robot URDF.
+Should I fix this for you?
+```
+
+<CardGroup cols={2}>
+  <Card title="Root cause analysis" icon="magnifying-glass">
+    Drift identifies the underlying issue, not just symptoms.
+  </Card>
+  <Card title="Context-aware solutions" icon="lightbulb">
+    Recommendations are specific to your robot and configuration.
+  </Card>
+  <Card title="Automatic fixes" icon="wrench">
+    Drift can often fix issues automatically with your permission.
+  </Card>
+  <Card title="Learning system" icon="brain">
+    Drift learns from common issues to provide better assistance.
+  </Card>
+</CardGroup>
+
+### Common debugging queries
+
+```bash
+drift> why won't my robot move?
+drift> what's causing this segmentation fault?
+drift> why is Gazebo running so slow?
+drift> why can't I see my robot in RViz?
+drift> what's wrong with my controller configuration?
+```
+
+Each query triggers intelligent analysis of your specific situation.
+
+<Tip>
+  Be as specific as possible in your debugging questions. Include symptoms, recent changes, or error messages you've seen.
+</Tip>
+
+## Error analysis and recovery
+
+Drift doesn't just identify errors — it helps you recover from them.
+
+### Build errors
+
+```bash
+drift> rebuild my workspace
+
+[Build fails with compiler errors]
+
+Build failed: missing dependency 'gazebo_ros_control'
+
+I can fix this by:
+1. Adding the dependency to your package.xml
+2. Installing the missing package
+
+Should I proceed with the fix?
+```
+
+Drift handles:
+- Missing dependencies
+- CMake configuration errors
+- Compiler warnings and errors
+- Linking problems
+- Package manifest issues
+
+### Runtime errors
+
+```bash
+drift> launch my robot
+
+[Controller manager fails to start]
+
+Error detected: controller_manager failed to initialize
+
+Analyzing logs...
+
+Issue: The controller configuration file is missing required parameters.
+Specifically, 'update_rate' is not defined.
+
+I can generate a complete controller config with recommended settings.
+Would you like me to do that?
+```
+
+### Gazebo errors
+
+```bash
+drift> why did Gazebo crash?
+
+Checking logs...
+
+Gazebo crashed due to:
+- Invalid SDF in world file at line 45
+- The <physics> tag is not properly closed
+
+Location: ~/.gazebo/worlds/my_world.world:45
+
+I can validate and fix your world file. Proceed?
+```
+
+<Warning>
+  While Drift can fix many errors automatically, always review changes to understand what was modified, especially in production code.
+</Warning>
+
+## Error recovery workflows
+
+Drift provides sophisticated error recovery:
+
+### Automatic retry
+
+```bash
+drift> launch my robot
+[Launch fails due to timing issue]
+
+Launch failed, but this looks like a timing issue.
+Retrying with proper node sequencing...
+
+[Successful launch]
+```
+
+### Progressive diagnosis
+
+```bash
+drift> my robot isn't moving
+
+Let me check several things:
+✓ Robot model loaded correctly
+✓ Controllers are running
+✗ No cmd_vel messages being published
+
+The issue is in your navigation stack.
+Checking navigation configuration...
+
+✗ Navigation nodes are not running
+
+Root cause: Navigation launch file wasn't included.
+Should I add it to your main launch file?
+```
+
+### Guided debugging
+
+When Drift can't automatically fix an issue:
+
+```bash
+drift> debug my custom plugin error
+
+I see a custom Gazebo plugin is failing to load.
+
+Here's what I found:
+1. The plugin library exists at the expected path
+2. Symbol loading is failing
+
+This is likely due to:
+- ABI compatibility issues
+- Missing library dependencies
+
+To debug further, try:
+1. Check plugin dependencies: ldd /path/to/plugin.so
+2. Verify Gazebo version compatibility
+3. Review plugin code for API changes
+
+Would you like me to check the plugin dependencies?
+```
+
+## Common debugging workflows
+
+### Sensor debugging
+
+```bash
+drift> add a lidar sensor to my robot and rebuild
+drift> launch my robot
+drift> why isn't the lidar data appearing in RViz?
+
+[Drift analyzes topic connections, frame transforms, and RViz config]
+
+Found two issues:
+1. The lidar frame_id doesn't match your URDF
+2. RViz is not configured to display LaserScan messages
+
+Fixing both now...
+```
+
+### Controller debugging
+
+```bash
+drift> my robot arm isn't responding to commands
+
+[Drift checks controller manager, joint states, command topics]
+
+Diagnosis:
+- Controller is loaded but not started
+- Missing controller startup in launch file
+
+Adding controller spawning to launch file...
+Restarting controller manager...
+
+Try sending commands now.
+```
+
+### Performance debugging
+
+```bash
+drift> why is my simulation running slowly?
+
+[Drift analyzes system resources, Gazebo settings, model complexity]
+
+Performance issues found:
+1. Real-time factor: 0.3x (very slow)
+2. Physics engine using 95% CPU
+3. Robot mesh has 500K triangles (very high)
+
+Recommendations:
+1. Simplify collision meshes
+2. Reduce physics update rate
+3. Use simplified visual meshes
+
+Should I create optimized mesh files?
+```
+
+<Tip>
+  Use Drift's performance debugging before optimizing manually — it can identify bottlenecks you might miss.
+</Tip>
+
+## Advanced debugging features
+
+### Log analysis
+
+```bash
+drift> analyze the last error
+drift> show me warnings from the last 10 minutes
+drift> find errors related to transforms
+```
+
+Drift can:
+- Parse ROS2 logs intelligently
+- Correlate errors across multiple nodes
+- Identify error patterns
+- Highlight critical issues
+
+### System diagnostics
+
+```bash
+drift> run system diagnostics
+
+[Drift checks]
+✓ ROS2 installation
+✓ Gazebo installation
+✓ Environment variables
+✓ Package dependencies
+✓ Workspace build status
+✗ Missing GAZEBO_MODEL_PATH entry
+
+Adding missing environment variable...
+```
+
+### Topic debugging
+
+```bash
+drift> why isn't my robot receiving velocity commands?
+
+[Drift checks topic connections]
+
+Analysis:
+- /cmd_vel topic exists
+- Publisher is active (navigation node)
+- Subscriber is active (controller)
+- But namespaces don't match!
+
+Publisher: /robot1/cmd_vel
+Subscriber: /cmd_vel
+
+Adding topic remapping to fix namespace mismatch...
+```
+
+### Transform debugging
+
+```bash
+drift> debug transform issues
+
+[Drift analyzes TF tree]
+
+Transform problems found:
+1. Missing transform between 'base_link' and 'camera_link'
+2. TF publisher not running
+
+This is usually caused by:
+- Missing robot_state_publisher
+- Incomplete URDF joint definitions
+
+Checking your URDF...
+Found: camera_link is not connected via joints
+
+Should I add the missing joint definition?
+```
+
+<Note>
+  Transform issues are among the most common problems in robotics. Drift's TF debugging can save hours of manual investigation.
+</Note>
+
+## Proactive debugging
+
+Drift doesn't just react to errors — it can prevent them:
+
+### Pre-launch validation
+
+```bash
+drift> launch my robot
+
+[Drift validates before launching]
+
+Validation checks:
+✓ URDF syntax valid
+✓ All mesh files exist
+✓ Controller config complete
+⚠ Warning: Camera frame rate (100Hz) may cause performance issues
+
+Recommended: Reduce to 30Hz for better performance.
+Continue with launch anyway? (y/n)
+```
+
+### Configuration warnings
+
+```bash
+drift> add a lidar sensor to my robot and rebuild
+
+[Drift notices potential issue]
+
+Warning: Your robot now has 3 high-frequency sensors.
+This may impact real-time performance.
+
+Consider:
+- Reducing sensor update rates
+- Using selective sensor activation
+- Increasing physics time step
+```
+
+### Best practice suggestions
+
+```bash
+drift> create a mobile robot with camera
+
+Robot created successfully!
+
+Tip: For optimal camera performance, consider:
+- Setting update_rate to 30Hz (default is 60Hz)
+- Using compressed_image_transport for network efficiency
+- Adding proper lighting in your world file
+```
+
+## Debugging best practices
+
+### Start with high-level questions
+
+```bash
+drift> my robot isn't working
+```
+
+Let Drift narrow down the issue rather than jumping to conclusions.
+
+### Provide context
+
+```bash
+drift> my camera worked yesterday but now it doesn't, I changed the URDF
+```
+
+Mentioning recent changes helps Drift focus its analysis.
+
+### Use iterative debugging
+
+```bash
+drift> why won't my robot move?
+[Drift identifies controller issue]
+
+drift> fix the controller configuration
+[Drift fixes it]
+
+drift> now why won't it move?
+[Drift finds the next issue: missing commands]
+```
+
+### Check processes first
+
+```bash
+drift> /ps
+```
+
+Verify all expected nodes are running before deep debugging.
+
+### Ask for explanations
+
+```bash
+drift> why did you change that parameter?
+drift> explain what caused that error
+```
+
+Understanding fixes helps you learn and prevent future issues.
+
+<Tip>
+  Drift's debugging is most effective when you engage in a conversation rather than just asking for one-shot fixes.
+</Tip>
+
+## Getting started with debugging
+
+1. **Encounter an issue:**
+   ```bash
+   drift> launch my robot
+   [Error occurs]
+   ```
+
+2. **Ask Drift what's wrong:**
+   ```bash
+   drift> what went wrong?
+   drift> why did that fail?
+   ```
+
+3. **Let Drift analyze:**
+   Drift examines logs, configurations, and system state
+
+4. **Review the diagnosis:**
+   Drift explains the root cause
+
+5. **Accept or guide the fix:**
+   ```bash
+   drift> yes, fix it
+   ```
+   or
+   ```bash
+   drift> no, just show me what to change
+   ```
+
+6. **Verify the solution:**
+   ```bash
+   drift> launch my robot
+   [Success!]
+   ```
+
+Drift transforms debugging from a frustrating hunt into a collaborative problem-solving session!

@@ -1,97 +1,165 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "Drift CLI Documentation"
+description: "Your AI-powered copilot for robotics simulations"
+mode: "custom"
 ---
 
-## Setting up
+<div className="relative overflow-hidden bg-gradient-to-br from-[#1a1d27] via-[#0f1117] to-[#1a1d27] dark:bg-gradient-to-br dark:from-[#1a1d27] dark:via-[#0f1117] dark:to-[#1a1d27] py-20 border-b border-[#27272a] dark:border-[#27272a]">
+  <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYtMi42ODYgNi02cy0yLjY4Ni02LTYtNi02IDIuNjg2LTYgNiAyLjY4NiA2IDYgNnoiIHN0cm9rZT0iIzNiODJmNiIgc3Ryb2tlLW9wYWNpdHk9Ii4wNSIvPjwvZz48L3N2Zz4=')] opacity-20" />
+  <div className="relative max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
+    <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-100 dark:text-gray-100 mb-6 tracking-tight">
+      Your AI Copilot for <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#60A5FA] to-[#3B82F6]">Robotics Simulations</span>
+    </h1>
+    <p className="text-lg sm:text-xl text-gray-400 dark:text-gray-400 max-w-3xl mx-auto mb-10 leading-relaxed">
+      Build, test, and debug complex robotic systems using natural language. Drift CLI eliminates the steep learning curve of ROS2 and Gazebo development.
+    </p>
+    <div className="flex flex-wrap gap-4 justify-center items-center">
+      <a 
+        href="/quickstart" 
+        className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold rounded-lg transition-colors no-underline shadow-lg shadow-[#3B82F6]/20"
+      >
+        <span>Get Started</span>
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+      <a 
+        href="/installation" 
+        className="inline-flex items-center gap-2 px-8 py-3.5 border border-[#3B82F6]/30 bg-[#3B82F6]/10 hover:bg-[#3B82F6]/20 text-gray-100 dark:text-gray-100 font-semibold rounded-lg transition-colors no-underline backdrop-blur-sm"
+      >
+        <span>Installation</span>
+      </a>
+    </div>
+  </div>
+</div>
 
-Get your documentation site up and running in minutes.
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <div className="text-center mb-12">
+    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Quick start</h2>
+    <p className="text-lg text-gray-600 dark:text-gray-400">Get up and running with Drift CLI in minutes</p>
+  </div>
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
+  <Steps>
+    <Step title="Install Drift CLI">
+      Run the installation script to get started instantly:
+      
+      ```bash
+      curl -fsSL https://godrift.ai/install | bash
+      ```
+      
+      Alternatively, download the `.deb` package manually from the [releases page](https://github.com/drift-tech/drift-releases/releases/latest) and install with:
+      
+      ```bash
+      sudo dpkg -i drift-cli_*.*.*_amd64.deb
+      ```
+    </Step>
 
-## Make it yours
+    <Step title="Launch Drift">
+      Start the Drift CLI interactive terminal:
+      
+      ```bash
+      drift
+      ```
+      
+      You'll see the Drift prompt ready to accept natural language commands.
+    </Step>
 
-Design a docs site that looks great and empowers your users.
+    <Step title="Create your first robot">
+      Use natural language to build a robot simulation:
+      
+      ```bash
+      drift> create a three arm manipulator with camera sensor
+      ```
+      
+      Drift will generate the necessary ROS2 packages, URDF files, and launch configurations automatically.
+    </Step>
 
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
-  </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
-  </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
-  </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
-  </Card>
-</Columns>
+    <Step title="Launch and iterate">
+      Launch your simulation and make changes on the fly:
+      
+      ```bash
+      drift> launch my robot with the custom world file
+      drift> add a lidar sensor to my robot and rebuild
+      ```
+      
+      Drift handles workspace management, builds, and error recovery for you.
+    </Step>
+  </Steps>
+</div>
 
-## Create beautiful pages
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <div className="text-center mb-12">
+    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Core features</h2>
+    <p className="text-lg text-gray-600 dark:text-gray-400">Everything you need to accelerate robotics development</p>
+  </div>
 
-Everything you need to create world-class documentation.
+  <CardGroup cols={2}>
+    <Card title="Natural language interface" icon="comments" href="/features/natural-language">
+      Talk to your simulation like you're talking to a colleague. No need to memorize complex commands.
+    </Card>
+    <Card title="ROS2 & Gazebo integration" icon="gears" href="/reference/ros2-integration">
+      Seamless workflow with ROS2 Humble/Foxy and Gazebo Sim. Works with your existing toolchain.
+    </Card>
+    <Card title="Workspace management" icon="folder-tree" href="/features/workspace-management">
+      Automatic package and workspace generation. Drift handles the boilerplate so you can focus on building.
+    </Card>
+    <Card title="Launch file generation" icon="file-code" href="/features/launch-files">
+      Automatically create and validate launch files for your robot configurations.
+    </Card>
+    <Card title="Process management" icon="list-check" href="/features/process-management">
+      Track and manage multiple background processes with the `/ps` command.
+    </Card>
+    <Card title="AI-assisted debugging" icon="bug" href="/features/debugging">
+      Real-time error recovery and intelligent troubleshooting for simulation issues.
+    </Card>
+  </CardGroup>
+</div>
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <div className="text-center mb-12">
+    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Explore the docs</h2>
+    <p className="text-lg text-gray-600 dark:text-gray-400">Learn how to get the most out of Drift CLI</p>
+  </div>
 
-## Need inspiration?
+  <CardGroup cols={3}>
+    <Card title="Basic commands" icon="terminal" href="/guide/basic-commands">
+      Learn the essential commands for everyday use
+    </Card>
+    <Card title="Special commands" icon="star" href="/guide/special-commands">
+      Master advanced CLI features and utilities
+    </Card>
+    <Card title="Building robots" icon="robot" href="/guide/building-robots">
+      Step-by-step guide to creating robot simulations
+    </Card>
+    <Card title="System requirements" icon="server" href="/reference/system-requirements">
+      Check compatibility and dependencies
+    </Card>
+    <Card title="Troubleshooting" icon="wrench" href="/guide/troubleshooting">
+      Common issues and solutions
+    </Card>
+    <Card title="FAQ" icon="circle-question" href="/support/faq">
+      Frequently asked questions
+    </Card>
+  </CardGroup>
+</div>
 
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+<div className="mt-20 mb-16 max-w-5xl mx-auto px-6">
+  <div className="relative overflow-hidden rounded-2xl border border-gray-200 dark:border-[#27272a] bg-gray-50 dark:bg-[#1a1d27] p-10 sm:p-12 text-center">
+    <div className="absolute inset-0 bg-gradient-to-br from-[#3B82F6]/5 to-transparent dark:from-[#3B82F6]/5 dark:to-transparent" />
+    <div className="relative">
+      <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Ready to build amazing robots?</h2>
+      <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8">
+        Join students, researchers, and engineers who are accelerating their robotics development with Drift CLI.
+      </p>
+      <a 
+        href="/quickstart" 
+        className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold rounded-lg transition-colors no-underline shadow-lg shadow-[#3B82F6]/20"
+      >
+        <span>Start building now</span>
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
