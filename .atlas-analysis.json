@@ -1,0 +1,89 @@
+{
+  "projectType": "cli-tool",
+  "projectName": "Drift CLI",
+  "projectDescription": "AI-powered copilot for robotics simulations with natural language interface for ROS2 and Gazebo.",
+  "theme": "aspen",
+  "primaryColor": "#3B82F6",
+  "lightColor": "#60A5FA",
+  "darkColor": "#2563EB",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "installation",
+              "quickstart"
+            ]
+          },
+          {
+            "group": "Core Features",
+            "pages": [
+              "features/natural-language",
+              "features/workspace-management",
+              "features/launch-files",
+              "features/process-management",
+              "features/debugging"
+            ]
+          },
+          {
+            "group": "Usage Guide",
+            "pages": [
+              "guide/basic-commands",
+              "guide/special-commands",
+              "guide/building-robots",
+              "guide/troubleshooting"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "reference/system-requirements",
+              "reference/ros2-integration",
+              "reference/gazebo-integration",
+              "reference/updates"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Resources",
+        "groups": [
+          {
+            "group": "Help & Support",
+            "pages": [
+              "support/faq",
+              "support/community",
+              "support/changelog"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Natural language interface for robotics simulation",
+    "ROS2 and Gazebo integration",
+    "Intelligent workspace and package management",
+    "Adaptive planning with real-time error recovery",
+    "Automatic launch file generation",
+    "Process management and tracking",
+    "AI-assisted debugging and troubleshooting"
+  ],
+  "publicApiSurface": [
+    "drift - Main CLI command",
+    "/help - Show comprehensive help and examples",
+    "/version - Display version information",
+    "/update - Update to latest version",
+    "/ps - Show running background processes",
+    "/clear - Clear terminal screen",
+    "/exit - Exit Drift CLI",
+    "create <description> - Natural language robot creation",
+    "launch <description> - Launch robot simulations",
+    "add <description> - Add components to robots",
+    "debug <description> - Troubleshoot issues"
+  ]
+}
